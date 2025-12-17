@@ -1,0 +1,157 @@
+<!DOCTYPE
+	rkpluginmap
+>
+<document
+	base_prefix=""
+	namespace="UniteColumns"
+	id="UniteColumns_rkward"
+	po_id="UniteColumns_rkward"
+	priority="medium"
+>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<about
+		name="rk.tidyr"
+		shortinfo="An RKWard plugin package for data manipulation using the 'tidyr', 'dplyr' and 'tibble' libraries."
+		longinfo="An RKWard plugin package for data manipulation using the 'tidyr', 'dplyr' and 'tibble' libraries."
+		version="0.0.1"
+		releasedate="2025-12-15"
+		url="https://github.com/AlfCano/rk.tidyr"
+		license="GPL (&gt;= 3)"
+	>
+		<author
+			given="Alfonso"
+			family="Cano"
+			email="alfonso.cano@correo.buap.mx"
+			role="aut, cre"
+		/>
+	</about>
+	<require
+		map="rkward::menu"
+	/>
+	<require
+		map="rkward::embedded"
+	/>
+	<components>
+		<component
+			id="cmp_UniteColumnsManageRowNams"
+			label="Manage Row Names"
+			type="standard"
+			file="plugins/ManageRowNames.xml"
+		>
+		</component>
+		<component
+			id="cmp_UniteColumnsExpandorCmplt"
+			label="Expand or Complete"
+			type="standard"
+			file="plugins/ExpandorComplete.xml"
+		>
+		</component>
+		<component
+			id="cmp_UniteColumnsHandlMssngVls"
+			label="Handle Missing Values"
+			type="standard"
+			file="plugins/HandleMissingValues.xml"
+		>
+		</component>
+		<component
+			id="cmp_UniteColumnsNestandUnnest"
+			label="Nest and Unnest"
+			type="standard"
+			file="plugins/NestandUnnest.xml"
+		>
+		</component>
+		<component
+			id="cmp_UniteColumnsUniteColumns"
+			label="Unite Columns"
+			type="standard"
+			file="plugins/UniteColumns.xml"
+		>
+		</component>
+	</components>
+	<hierarchy>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="TidyDatatidyr"
+				label="Tidy Data (tidyr)"
+			>
+				<entry
+					component="cmp_UniteColumnsManageRowNams"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="TidyDatatidyr"
+				label="Tidy Data (tidyr)"
+			>
+				<entry
+					component="cmp_UniteColumnsExpandorCmplt"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="TidyDatatidyr"
+				label="Tidy Data (tidyr)"
+			>
+				<entry
+					component="cmp_UniteColumnsHandlMssngVls"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="TidyDatatidyr"
+				label="Tidy Data (tidyr)"
+			>
+				<entry
+					component="cmp_UniteColumnsNestandUnnest"
+				/>
+			</menu>
+		</menu>
+		<menu
+			id="data"
+			label="Data"
+		>
+			<menu
+				id="TidyDatatidyr"
+				label="Tidy Data (tidyr)"
+			>
+				<entry
+					component="cmp_UniteColumnsUniteColumns"
+				/>
+			</menu>
+		</menu>
+	</hierarchy>
+	<!--
+		<context
+			id="x11"
+		>
+		</context>
+	-->
+	<!--
+		<context
+			id="import"
+		>
+		</context>
+	-->
+</document>

@@ -1,0 +1,35 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="ManageRowNames.js" />
+	<help file="ManageRowNames.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Manage Row Names">
+		<row id="row_vORC2CR2CR">
+			<varselector id="rn_selector" />
+			<column id="clm_rORC2CR2CR">
+				<radio id="rn_mode" label="Operation">
+					<option label="Row names to Column" value="r2c" checked="true" />
+					<option label="Column to Row names" value="c2r" />
+				</radio>
+				<varslot id="rn_input_var" label="Column to use as Row Names (for Col-&gt;Row)" source="rn_selector" />
+				<input label="Name for new Column (for Row-&gt;Col)" id="rn_input_text" initial="rowname" />
+				<saveobject label="Save result as" checkable="true" checked="true" initial="tibble_result" id="rn_save_obj" />
+			</column>
+		</row>
+	</dialog>
+</document>

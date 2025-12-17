@@ -1,0 +1,42 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="NestandUnnest.js" />
+	<help file="NestandUnnest.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Nested Data Operations">
+		<row id="row_vONDUDRGNO">
+			<varselector id="nest_selector" />
+			<column id="clm_rONDUDRGNO">
+				<radio id="nest_mode" label="Operation">
+					<option label="Nest Data" value="nest" checked="true" />
+					<option label="Unnest Data (unnest_longer)" value="unnest" />
+					<option label="Rowwise Grouping" value="rowwise" />
+				</radio>
+				<frame label="Nest Options" id="frm_NstOptns">
+					<varslot id="nest_group_vars" label="Grouping Variables (Keep outside nest)" source="nest_selector" multi="true" />
+					<varslot id="nest_target_vars" label="Variables to Nest (Inside list-column)" source="nest_selector" multi="true" />
+					<input label="Name for new List-Column" id="nest_new_col" initial="data" />
+				</frame>
+				<frame label="Unnest/Rowwise Options" id="frm_UnnstRwO">
+					<varslot id="unnest_list_col" label="List-Column to Unnest" source="nest_selector" />
+				</frame>
+				<saveobject label="Save result as" checkable="true" checked="true" initial="nested_result" id="nest_save_obj" />
+			</column>
+		</row>
+	</dialog>
+</document>

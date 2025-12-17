@@ -1,0 +1,34 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="ExpandorComplete.js" />
+	<help file="ExpandorComplete.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Expand / Complete">
+		<row id="row_vFECVSFECV">
+			<varselector id="exp_selector" />
+			<column id="clm_rddxpFECVS">
+				<radio id="exp_func" label="Function">
+					<option label="Expand (tidyr::expand)" value="expand" checked="true" />
+					<option label="Complete (tidyr::complete)" value="complete" />
+				</radio>
+				<varslot id="exp_vars" label="Variables to cross" source="exp_selector" required="true" multi="true" />
+				<saveobject label="Save result as" checkable="true" checked="true" initial="expand_result" id="exp_save_obj" />
+			</column>
+		</row>
+	</dialog>
+</document>

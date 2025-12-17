@@ -1,0 +1,33 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="UniteColumns.js" />
+	<help file="UniteColumns.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Unite Columns">
+		<row id="row_vCUNCNSR1S">
+			<varselector id="unite_selector" />
+			<column id="clm_vCUNCNSR1S">
+				<varslot id="unite_vars" label="Columns to Unite" source="unite_selector" required="true" multi="true" />
+				<input label="New Column Name" id="unite_colname" initial="new_col" />
+				<input label="Separator (e.g., _ or -)" id="unite_sep" initial="_" />
+				<checkbox id="unite_remove" label="Remove input columns" value="1" checked="true" />
+				<saveobject label="Save result as" checkable="true" checked="true" initial="unite_result" id="unite_save_obj" />
+			</column>
+		</row>
+	</dialog>
+</document>

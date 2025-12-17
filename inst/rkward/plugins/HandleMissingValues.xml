@@ -1,0 +1,46 @@
+<!DOCTYPE rkplugin >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<code file="HandleMissingValues.js" />
+	<help file="HandleMissingValues.rkh" />
+	<!--
+		<dependencies>
+		</dependencies>
+	-->
+	<logic>
+		<!--
+			<convert id="!edit!" sources="!edit!" mode="equals" standard="!edit!" />
+		-->
+		<!--
+			<connect governor="!edit!.state" client="!edit!.enabled" />
+		-->
+	</logic>
+	<dialog label="Handle Missing Values">
+		<row id="row_vFDNAFNARN">
+			<varselector id="na_selector" />
+			<column id="clm_dFDNAFNARN">
+				<dropdown id="na_func" label="Function">
+					<option label="Drop NAs (drop_na)" value="drop_na" checked="true" />
+					<option label="Fill NAs (fill)" value="fill" />
+					<option label="Replace NAs (replace_na)" value="replace_na" />
+				</dropdown>
+				<varslot id="na_vars" label="Target Variables" source="na_selector" required="true" multi="true" />
+				<frame label="Fill Options" id="frm_FllOptns">
+					<dropdown id="na_fill_dir" label="Fill Direction">
+						<option label="Down" value="down" checked="true" />
+						<option label="Up" value="up" />
+						<option label="Down then Up" value="downup" />
+						<option label="Up then Down" value="updown" />
+					</dropdown>
+				</frame>
+				<frame label="Replace Options" id="frm_RplcOptn">
+					<input label="Replacement List (R code, e.g., list(col=0))" id="na_replace_val" initial="list()" />
+				</frame>
+				<saveobject label="Save result as" checkable="true" checked="true" initial="missing_result" id="na_save_obj" />
+			</column>
+		</row>
+	</dialog>
+</document>

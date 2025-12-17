@@ -1,0 +1,46 @@
+<!DOCTYPE rkhelp >
+<document>
+	<!--
+		this code was generated using the rkwarddev package.
+	perhaps don't make changes here, but in the rkwarddev script instead!
+	-->
+	<title>
+		Nest and Unnest
+	</title>
+	<summary>
+	</summary>
+	<usage>
+	</usage>
+	<!--
+		<section id="sct_EDITORDE" title="EDIT OR DELETE ME">
+			EDIT OR DELETE ME
+		</section>
+	-->
+	<settings>
+		<setting id="nest_mode">
+		</setting>
+		<caption id="frm_NstOptns" />
+		<setting id="nest_group_vars">
+		</setting>
+		<setting id="nest_target_vars">
+		</setting>
+		<setting id="nest_new_col">
+		</setting>
+		<caption id="frm_UnnstRwO" />
+		<setting id="unnest_list_col">
+		</setting>
+		<setting id="nest_save_obj">
+		</setting>
+	</settings>
+	<!--
+		<related>
+			<ul>
+				<li>
+					<link href="rkward://rhelp/..." />
+				</li>
+			</ul>
+		</related>
+	-->
+	<technical>
+	</technical>
+</document>
