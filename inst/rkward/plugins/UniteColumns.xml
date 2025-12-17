@@ -27,6 +27,7 @@
 				<input label="Separator (e.g., _ or -)" id="unite_sep" initial="_" />
 				<checkbox id="unite_remove" label="Remove input columns" value="1" checked="true" />
 				<saveobject label="Save result as" checkable="true" checked="true" initial="unite_result" id="unite_save_obj" />
+				<preview label="Preview" id="prv_Preview" mode="data" />
 			</column>
 		</row>
 	</dialog>

@@ -40,6 +40,7 @@
 					<input label="Replacement List (R code, e.g., list(col=0))" id="na_replace_val" initial="list()" />
 				</frame>
 				<saveobject label="Save result as" checkable="true" checked="true" initial="missing_result" id="na_save_obj" />
+				<preview label="Preview" id="prv_Preview" mode="data" />
 			</column>
 		</row>
 	</dialog>

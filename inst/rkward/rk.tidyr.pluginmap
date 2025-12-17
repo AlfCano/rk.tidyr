@@ -20,8 +20,8 @@
 		name="rk.tidyr"
 		shortinfo="An RKWard plugin package for data manipulation using the 'tidyr', 'dplyr' and 'tibble' libraries."
 		longinfo="An RKWard plugin package for data manipulation using the 'tidyr', 'dplyr' and 'tibble' libraries."
-		version="0.0.2"
-		releasedate="2025-12-16"
+		version="0.0.3"
+		releasedate="2025-12-17"
 		url="https://github.com/AlfCano/rk.tidyr"
 		license="GPL (&gt;= 3)"
 	>

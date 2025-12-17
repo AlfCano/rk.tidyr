@@ -36,6 +36,7 @@
 					<varslot id="unnest_list_col" label="List-Column to Unnest" source="nest_selector" />
 				</frame>
 				<saveobject label="Save result as" checkable="true" checked="true" initial="nested_result" id="nest_save_obj" />
+				<preview label="Preview" id="prv_Preview" mode="data" />
 			</column>
 		</row>
 	</dialog>

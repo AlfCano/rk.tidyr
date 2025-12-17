@@ -19,6 +19,8 @@
 	<settings>
 		<setting id="rn_mode">
 		</setting>
+		<setting id="rn_df_slot">
+		</setting>
 		<setting id="rn_input_var">
 		</setting>
 		<setting id="rn_input_text">

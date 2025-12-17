@@ -19,15 +19,16 @@
 		-->
 	</logic>
 	<dialog label="Expand / Complete">
-		<row id="row_vFECVSFECV">
+		<row id="row_vFECVSPPFE">
 			<varselector id="exp_selector" />
-			<column id="clm_rddxpFECVS">
+			<column id="clm_rddFECVSPP">
 				<radio id="exp_func" label="Function">
 					<option label="Expand (tidyr::expand)" value="expand" checked="true" />
 					<option label="Complete (tidyr::complete)" value="complete" />
 				</radio>
 				<varslot id="exp_vars" label="Variables to cross" source="exp_selector" required="true" multi="true" />
 				<saveobject label="Save result as" checkable="true" checked="true" initial="expand_result" id="exp_save_obj" />
+				<preview label="Preview" id="prv_Preview" mode="data" />
 			</column>
 		</row>
 	</dialog>

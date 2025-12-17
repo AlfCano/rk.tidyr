@@ -19,16 +19,18 @@
 		-->
 	</logic>
 	<dialog label="Manage Row Names">
-		<row id="row_vORC2CR2CR">
+		<row id="row_vORC2CR2DR">
 			<varselector id="rn_selector" />
-			<column id="clm_rORC2CR2CR">
+			<column id="clm_rORC2CR2DR">
 				<radio id="rn_mode" label="Operation">
 					<option label="Row names to Column" value="r2c" checked="true" />
 					<option label="Column to Row names" value="c2r" />
 				</radio>
-				<varslot id="rn_input_var" label="Column to use as Row Names (for Col-&gt;Row)" source="rn_selector" />
+				<varslot id="rn_df_slot" label="Dataframe (for Row-&gt;Col)" source="rn_selector" classes="data.frame" />
+				<varslot id="rn_input_var" label="Column (for Col-&gt;Row)" source="rn_selector" />
 				<input label="Name for new Column (for Row-&gt;Col)" id="rn_input_text" initial="rowname" />
 				<saveobject label="Save result as" checkable="true" checked="true" initial="tibble_result" id="rn_save_obj" />
+				<preview label="Preview" id="prv_Preview" mode="data" />
 			</column>
 		</row>
 	</dialog>
