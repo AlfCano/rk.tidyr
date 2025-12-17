@@ -15,21 +15,43 @@ local({
     ),
     about = list(
       desc = "An RKWard plugin package for data manipulation using the 'tidyr', 'dplyr' and 'tibble' libraries.",
-      version = "0.0.1",
+      version = "0.0.2",
       url = "https://github.com/AlfCano/rk.tidyr",
       license = "GPL (>= 3)"
     )
   )
 
-  # Common hierarchy for all components
-  # Menu: Data -> Tidy Data (tidyr) -> [Component]
   common_hierarchy <- list("data", "Tidy Data (tidyr)")
 
   # =========================================================================================
-  # MAIN PLUGIN: Unite Columns (tidyr::unite)
+  # JS Helper for all components (Robust Variable Parsing)
   # =========================================================================================
-  # This functionality is passed directly to rk.plugin.skeleton, so we do NOT
-  # create an rk.plugin.component object for it to avoid duplicate declaration errors.
+  # This JS function handles both 'df$col' and 'df[["col"]]' formats.
+  # It returns the dataframe name and the column name (quoted if necessary).
+  js_parse_helper <- "
+    function parseVar(fullPath) {
+        if (!fullPath) return {df: '', col: ''};
+
+        if (fullPath.indexOf('[[') > -1) {
+            // Format: df[[\"col\"]] or df[['col']]
+            var parts = fullPath.split('[[');
+            var df = parts[0];
+            var col = parts[1].replace(']]', ''); // Returns \"col\" or 'col' with quotes
+            return {df: df, col: col};
+        } else if (fullPath.indexOf('$') > -1) {
+            // Format: df$col
+            var parts = fullPath.split('$');
+            return {df: parts[0], col: '\\\"' + parts[1] + '\\\"'}; // Add quotes for safety
+        } else {
+            // Fallback or whole object
+            return {df: '', col: fullPath};
+        }
+    }
+  "
+
+  # =========================================================================================
+  # MAIN PLUGIN: Unite Columns
+  # =========================================================================================
 
   help_unite <- rk.rkh.doc(
     title = rk.rkh.title(text = "Unite Multiple Columns"),
@@ -42,8 +64,6 @@ local({
   unite_colname <- rk.XML.input(label = "New Column Name", initial = "new_col", id.name = "unite_colname")
   unite_sep <- rk.XML.input(label = "Separator (e.g., _ or -)", initial = "_", id.name = "unite_sep")
   unite_remove <- rk.XML.cbox(label = "Remove input columns", value = "1", chk = TRUE, id.name = "unite_remove")
-
-  # HANDSHAKE: initial = "unite_result"
   unite_save <- rk.XML.saveobj(label = "Save result as", chk = TRUE, initial = "unite_result", id.name = "unite_save_obj")
 
   dialog_unite <- rk.XML.dialog(
@@ -54,27 +74,34 @@ local({
     )
   )
 
-  js_calc_unite <- '
+  js_calc_unite <- paste0(js_parse_helper, '
     var vars = getValue("unite_vars");
     var new_col = getValue("unite_colname");
     var sep = getValue("unite_sep");
     var remove = getValue("unite_remove");
     var save_name = getValue("unite_save_obj.objectname");
 
-    // Guess the dataframe from the first variable (format: df$col)
-    var first_var = vars.split("\\n")[0];
-    var df = first_var.split("$")[0];
+    var varList = vars.split("\\n");
+    var dfName = "";
+    var cols = [];
 
-    // Construct args
-    var args = "col = \\\"" + new_col + "\\\", " + vars.replace(/\\n/g, ", ");
+    // Parse all selected variables
+    for (var i = 0; i < varList.length; i++) {
+        var p = parseVar(varList[i]);
+        if (i === 0) dfName = p.df; // Assume all vars are from the same dataframe
+        cols.push(p.col);
+    }
+
+    // tidyr::unite(data, col, <cols...>, sep)
+    var args = "col = \\\"" + new_col + "\\\", " + cols.join(", ");
     args += ", sep = \\\"" + sep + "\\\"";
 
     if (remove != "1") {
         args += ", remove = FALSE";
     }
 
-    echo("unite_result <- tidyr::unite(data = " + df + ", " + args + ")\\n");
-  '
+    echo("unite_result <- tidyr::unite(data = " + dfName + ", " + args + ")\\n");
+  ')
 
   js_print_unite <- '
     var save_name = getValue("unite_save_obj.objectname");
@@ -82,7 +109,7 @@ local({
   '
 
   # =========================================================================================
-  # COMPONENT 1: Manage Row Names (Tibble)
+  # COMPONENT 1: Manage Row Names
   # =========================================================================================
 
   help_rownames <- rk.rkh.doc(
@@ -100,8 +127,6 @@ local({
 
   rn_input_var <- rk.XML.varslot(label = "Column to use as Row Names (for Col->Row)", source = "rn_selector", id.name = "rn_input_var")
   rn_input_text <- rk.XML.input(label = "Name for new Column (for Row->Col)", initial = "rowname", id.name = "rn_input_text")
-
-  # HANDSHAKE: initial = "tibble_result"
   rn_save <- rk.XML.saveobj(label = "Save result as", chk = TRUE, initial = "tibble_result", id.name = "rn_save_obj")
 
   dialog_rownames <- rk.XML.dialog(
@@ -112,32 +137,31 @@ local({
     )
   )
 
-  js_calc_rownames <- '
+  js_calc_rownames <- paste0(js_parse_helper, '
     var mode = getValue("rn_mode");
     var col_var = getValue("rn_input_var");
     var new_name = getValue("rn_input_text");
 
-    // Extract DF name
-    var df = "";
-    if (col_var) {
-        df = col_var.split("$")[0];
-    }
+    // We need a dataframe context.
+    // If "r2c", user might not select a var.
+    // Logic: If col_var exists, extract DF. If not, we cannot guess DF (limitation).
+
+    var p = parseVar(col_var);
+    var df = p.df;
 
     if (df == "") {
-       // Logic to handle case where no var is selected in r2c mode would require a dedicated df selector.
-       // For now, we assume user selects a var to contextually pick the DF.
-       echo("stop(\\\"Please select a variable from the target dataframe to identify the object.\\\")\\n");
+       echo("stop(\\\"Please select a variable/column from the dataframe to identify the object.\\\")\\n");
     } else {
         if (mode == "r2c") {
+            // tibble::rownames_to_column(data, var)
             echo("tibble_result <- tibble::rownames_to_column(" + df + ", var = \\\"" + new_name + "\\\")\\n");
         } else {
-            // tibble::column_to_rownames(df, var = "colname")
-            // extracting clean colname from df$colname
-            var clean_col = col_var.split("$")[1];
-            echo("tibble_result <- tibble::column_to_rownames(" + df + ", var = \\\"" + clean_col + "\\\")\\n");
+            // tibble::column_to_rownames(data, var)
+            // p.col contains quoted name ("col")
+            echo("tibble_result <- tibble::column_to_rownames(" + df + ", var = " + p.col + ")\\n");
         }
     }
-  '
+  ')
 
   js_print_rownames <- '
     var save_name = getValue("rn_save_obj.objectname");
@@ -170,8 +194,6 @@ local({
   ), id.name = "exp_func")
 
   exp_vars <- rk.XML.varslot(label = "Variables to cross", source = "exp_selector", multi = TRUE, required = TRUE, id.name = "exp_vars")
-
-  # HANDSHAKE: initial = "expand_result"
   exp_save <- rk.XML.saveobj(label = "Save result as", chk = TRUE, initial = "expand_result", id.name = "exp_save_obj")
 
   dialog_expand <- rk.XML.dialog(
@@ -182,17 +204,23 @@ local({
     )
   )
 
-  js_calc_expand <- '
+  js_calc_expand <- paste0(js_parse_helper, '
     var func = getValue("exp_func");
     var vars = getValue("exp_vars");
 
-    var first_var = vars.split("\\n")[0];
-    var df = first_var.split("$")[0];
+    var varList = vars.split("\\n");
+    var dfName = "";
+    var cols = [];
 
-    var args = vars.replace(/\\n/g, ", ");
+    for (var i = 0; i < varList.length; i++) {
+        var p = parseVar(varList[i]);
+        if (i === 0) dfName = p.df;
+        cols.push(p.col);
+    }
 
-    echo("expand_result <- tidyr::" + func + "(" + df + ", " + args + ")\\n");
-  '
+    var args = cols.join(", ");
+    echo("expand_result <- tidyr::" + func + "(" + dfName + ", " + args + ")\\n");
+  ')
 
   js_print_expand <- '
     var save_name = getValue("exp_save_obj.objectname");
@@ -235,8 +263,6 @@ local({
   ), id.name = "na_fill_dir")
 
   na_replace_val <- rk.XML.input(label = "Replacement List (R code, e.g., list(col=0))", initial = "list()", id.name = "na_replace_val")
-
-  # HANDSHAKE: initial = "missing_result"
   na_save <- rk.XML.saveobj(label = "Save result as", chk = TRUE, initial = "missing_result", id.name = "na_save_obj")
 
   dialog_na <- rk.XML.dialog(
@@ -253,29 +279,35 @@ local({
     )
   )
 
-  js_calc_na <- '
+  js_calc_na <- paste0(js_parse_helper, '
     var func = getValue("na_func");
     var vars = getValue("na_vars");
     var fill_dir = getValue("na_fill_dir");
     var replace_val = getValue("na_replace_val");
 
-    var first_var = vars.split("\\n")[0];
-    var df = first_var.split("$")[0];
+    var varList = vars.split("\\n");
+    var dfName = "";
+    var cols = [];
 
-    var args = "";
+    for (var i = 0; i < varList.length; i++) {
+        var p = parseVar(varList[i]);
+        if (i === 0) dfName = p.df;
+        cols.push(p.col);
+    }
+
+    var args = cols.join(", ");
 
     if (func == "drop_na") {
-        args = vars.replace(/\\n/g, ", ");
-        echo("missing_result <- tidyr::drop_na(" + df + ", " + args + ")\\n");
+        echo("missing_result <- tidyr::drop_na(" + dfName + ", " + args + ")\\n");
     }
     else if (func == "fill") {
-        args = vars.replace(/\\n/g, ", ");
-        echo("missing_result <- tidyr::fill(" + df + ", " + args + ", .direction = \\\"" + fill_dir + "\\\")\\n");
+        echo("missing_result <- tidyr::fill(" + dfName + ", " + args + ", .direction = \\\"" + fill_dir + "\\\")\\n");
     }
     else if (func == "replace_na") {
-        echo("missing_result <- tidyr::replace_na(" + df + ", replace = " + replace_val + ")\\n");
+        // replace_na typically takes the dataframe and the list. Columns are inferred from list keys.
+        echo("missing_result <- tidyr::replace_na(" + dfName + ", replace = " + replace_val + ")\\n");
     }
-  '
+  ')
 
   js_print_na <- '
     var func = getValue("na_func");
@@ -312,10 +344,7 @@ local({
   nest_group_vars <- rk.XML.varslot(label = "Grouping Variables (Keep outside nest)", source = "nest_selector", multi = TRUE, id.name = "nest_group_vars")
   nest_target_vars <- rk.XML.varslot(label = "Variables to Nest (Inside list-column)", source = "nest_selector", multi = TRUE, id.name = "nest_target_vars")
   nest_new_col <- rk.XML.input(label = "Name for new List-Column", initial = "data", id.name = "nest_new_col")
-
   unnest_list_col <- rk.XML.varslot(label = "List-Column to Unnest", source = "nest_selector", id.name = "unnest_list_col")
-
-  # HANDSHAKE: initial = "nested_result"
   nest_save <- rk.XML.saveobj(label = "Save result as", chk = TRUE, initial = "nested_result", id.name = "nest_save_obj")
 
   dialog_nest <- rk.XML.dialog(
@@ -331,7 +360,7 @@ local({
     )
   )
 
-  js_calc_nest <- '
+  js_calc_nest <- paste0(js_parse_helper, '
     var mode = getValue("nest_mode");
     var group_vars = getValue("nest_group_vars");
     var target_vars = getValue("nest_target_vars");
@@ -339,44 +368,54 @@ local({
     var list_col = getValue("unnest_list_col");
 
     var cmd = "";
-    function getDF(v) { return v ? v.split("$")[0] : ""; }
 
     if (mode == "nest") {
         var df = "";
-        if (group_vars) df = getDF(group_vars.split("\\n")[0]);
-        else if (target_vars) df = getDF(target_vars.split("\\n")[0]);
+
+        // Extract DF from groups or targets
+        if (group_vars) {
+            df = parseVar(group_vars.split("\\n")[0]).df;
+        } else if (target_vars) {
+            df = parseVar(target_vars.split("\\n")[0]).df;
+        }
 
         cmd = df;
         echo("require(dplyr)\\n");
 
         if (group_vars) {
-            var g_args = group_vars.replace(/\\n/g, ", ");
-            cmd = "dplyr::group_by(" + cmd + ", " + g_args + ")";
+             var g_list = group_vars.split("\\n");
+             var g_cols = [];
+             for(var i=0; i<g_list.length; i++) g_cols.push(parseVar(g_list[i]).col);
+             cmd = "dplyr::group_by(" + cmd + ", " + g_cols.join(", ") + ")";
         }
 
-        var t_args = target_vars.replace(/\\n/g, ", ");
+        var t_list = target_vars.split("\\n");
+        var t_cols = [];
+        for(var i=0; i<t_list.length; i++) t_cols.push(parseVar(t_list[i]).col);
+
         if (group_vars) {
-             cmd += " %>% tidyr::nest(" + new_col + " = c(" + t_args + "))";
+             cmd += " %>% tidyr::nest(" + new_col + " = c(" + t_cols.join(", ") + "))";
         } else {
-             cmd = "tidyr::nest(" + cmd + ", " + new_col + " = c(" + t_args + "))";
+             cmd = "tidyr::nest(" + cmd + ", " + new_col + " = c(" + t_cols.join(", ") + "))";
         }
     }
     else if (mode == "unnest") {
-        if (!list_col) {
-            echo("stop(\\\"Select a list-column to unnest.\\\")\\n");
-        }
-        var df = getDF(list_col);
-        var clean_col = list_col.split("$")[1];
-        cmd = "tidyr::unnest_longer(" + df + ", col = " + clean_col + ")";
+        if (!list_col) echo("stop(\\\"Select a list-column.\\\")\\n");
+
+        var p = parseVar(list_col);
+        cmd = "tidyr::unnest_longer(" + p.df + ", col = " + p.col + ")";
     }
     else if (mode == "rowwise") {
-        var df = getDF(list_col);
-         if (!df && group_vars) df = getDF(group_vars.split("\\n")[0]);
+        // Try to find DF from list_col slot, or group vars slot
+        var df = "";
+        if (list_col) df = parseVar(list_col).df;
+        if (!df && group_vars) df = parseVar(group_vars.split("\\n")[0]).df;
+
         cmd = "dplyr::rowwise(" + df + ")";
     }
 
     echo("nested_result <- " + cmd + "\\n");
-  '
+  ')
 
   js_print_nest <- '
     var mode = getValue("nest_mode");
@@ -399,7 +438,6 @@ local({
   rk.plugin.skeleton(
     about = package_about,
     path = ".",
-    # MAIN PLUGIN DEFINITION: "Unite Columns"
     xml = list(dialog = dialog_unite),
     js = list(
         require = "tidyr",
@@ -407,9 +445,7 @@ local({
         printout = js_print_unite
     ),
     rkh = list(help = help_unite),
-    # SUB-COMPONENTS
     components = list(
-        # Note: Unite is NOT here, because it is defined above as the main plugin.
         component_rownames,
         component_expand,
         component_na,

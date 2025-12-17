@@ -14,15 +14,40 @@ function calculate(is_preview){
 
 	// the R code to be evaluated
 
+    function parseVar(fullPath) {
+        if (!fullPath) return {df: '', col: ''};
+
+        if (fullPath.indexOf('[[') > -1) {
+            // Format: df[["col"]] or df[['col']]
+            var parts = fullPath.split('[[');
+            var df = parts[0];
+            var col = parts[1].replace(']]', ''); // Returns "col" or 'col' with quotes
+            return {df: df, col: col};
+        } else if (fullPath.indexOf('$') > -1) {
+            // Format: df$col
+            var parts = fullPath.split('$');
+            return {df: parts[0], col: '\"' + parts[1] + '\"'}; // Add quotes for safety
+        } else {
+            // Fallback or whole object
+            return {df: '', col: fullPath};
+        }
+    }
+  
     var func = getValue("exp_func");
     var vars = getValue("exp_vars");
 
-    var first_var = vars.split("\n")[0];
-    var df = first_var.split("$")[0];
+    var varList = vars.split("\n");
+    var dfName = "";
+    var cols = [];
 
-    var args = vars.replace(/\n/g, ", ");
+    for (var i = 0; i < varList.length; i++) {
+        var p = parseVar(varList[i]);
+        if (i === 0) dfName = p.df;
+        cols.push(p.col);
+    }
 
-    echo("expand_result <- tidyr::" + func + "(" + df + ", " + args + ")\n");
+    var args = cols.join(", ");
+    echo("expand_result <- tidyr::" + func + "(" + dfName + ", " + args + ")\n");
   
 }
 

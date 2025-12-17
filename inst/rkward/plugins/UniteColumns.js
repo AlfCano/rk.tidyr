@@ -14,25 +14,51 @@ function calculate(is_preview){
 
 	// the R code to be evaluated
 
+    function parseVar(fullPath) {
+        if (!fullPath) return {df: '', col: ''};
+
+        if (fullPath.indexOf('[[') > -1) {
+            // Format: df[["col"]] or df[['col']]
+            var parts = fullPath.split('[[');
+            var df = parts[0];
+            var col = parts[1].replace(']]', ''); // Returns "col" or 'col' with quotes
+            return {df: df, col: col};
+        } else if (fullPath.indexOf('$') > -1) {
+            // Format: df$col
+            var parts = fullPath.split('$');
+            return {df: parts[0], col: '\"' + parts[1] + '\"'}; // Add quotes for safety
+        } else {
+            // Fallback or whole object
+            return {df: '', col: fullPath};
+        }
+    }
+  
     var vars = getValue("unite_vars");
     var new_col = getValue("unite_colname");
     var sep = getValue("unite_sep");
     var remove = getValue("unite_remove");
     var save_name = getValue("unite_save_obj.objectname");
 
-    // Guess the dataframe from the first variable (format: df$col)
-    var first_var = vars.split("\n")[0];
-    var df = first_var.split("$")[0];
+    var varList = vars.split("\n");
+    var dfName = "";
+    var cols = [];
 
-    // Construct args
-    var args = "col = \"" + new_col + "\", " + vars.replace(/\n/g, ", ");
+    // Parse all selected variables
+    for (var i = 0; i < varList.length; i++) {
+        var p = parseVar(varList[i]);
+        if (i === 0) dfName = p.df; // Assume all vars are from the same dataframe
+        cols.push(p.col);
+    }
+
+    // tidyr::unite(data, col, <cols...>, sep)
+    var args = "col = \"" + new_col + "\", " + cols.join(", ");
     args += ", sep = \"" + sep + "\"";
 
     if (remove != "1") {
         args += ", remove = FALSE";
     }
 
-    echo("unite_result <- tidyr::unite(data = " + df + ", " + args + ")\n");
+    echo("unite_result <- tidyr::unite(data = " + dfName + ", " + args + ")\n");
   
 }
 

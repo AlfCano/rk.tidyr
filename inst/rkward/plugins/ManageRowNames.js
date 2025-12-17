@@ -14,28 +14,46 @@ function calculate(is_preview){
 
 	// the R code to be evaluated
 
+    function parseVar(fullPath) {
+        if (!fullPath) return {df: '', col: ''};
+
+        if (fullPath.indexOf('[[') > -1) {
+            // Format: df[["col"]] or df[['col']]
+            var parts = fullPath.split('[[');
+            var df = parts[0];
+            var col = parts[1].replace(']]', ''); // Returns "col" or 'col' with quotes
+            return {df: df, col: col};
+        } else if (fullPath.indexOf('$') > -1) {
+            // Format: df$col
+            var parts = fullPath.split('$');
+            return {df: parts[0], col: '\"' + parts[1] + '\"'}; // Add quotes for safety
+        } else {
+            // Fallback or whole object
+            return {df: '', col: fullPath};
+        }
+    }
+  
     var mode = getValue("rn_mode");
     var col_var = getValue("rn_input_var");
     var new_name = getValue("rn_input_text");
 
-    // Extract DF name
-    var df = "";
-    if (col_var) {
-        df = col_var.split("$")[0];
-    }
+    // We need a dataframe context.
+    // If "r2c", user might not select a var.
+    // Logic: If col_var exists, extract DF. If not, we cannot guess DF (limitation).
+
+    var p = parseVar(col_var);
+    var df = p.df;
 
     if (df == "") {
-       // Logic to handle case where no var is selected in r2c mode would require a dedicated df selector.
-       // For now, we assume user selects a var to contextually pick the DF.
-       echo("stop(\"Please select a variable from the target dataframe to identify the object.\")\n");
+       echo("stop(\"Please select a variable/column from the dataframe to identify the object.\")\n");
     } else {
         if (mode == "r2c") {
+            // tibble::rownames_to_column(data, var)
             echo("tibble_result <- tibble::rownames_to_column(" + df + ", var = \"" + new_name + "\")\n");
         } else {
-            // tibble::column_to_rownames(df, var = "colname")
-            // extracting clean colname from df$colname
-            var clean_col = col_var.split("$")[1];
-            echo("tibble_result <- tibble::column_to_rownames(" + df + ", var = \"" + clean_col + "\")\n");
+            // tibble::column_to_rownames(data, var)
+            // p.col contains quoted name ("col")
+            echo("tibble_result <- tibble::column_to_rownames(" + df + ", var = " + p.col + ")\n");
         }
     }
   

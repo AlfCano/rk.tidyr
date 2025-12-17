@@ -14,26 +14,51 @@ function calculate(is_preview){
 
 	// the R code to be evaluated
 
+    function parseVar(fullPath) {
+        if (!fullPath) return {df: '', col: ''};
+
+        if (fullPath.indexOf('[[') > -1) {
+            // Format: df[["col"]] or df[['col']]
+            var parts = fullPath.split('[[');
+            var df = parts[0];
+            var col = parts[1].replace(']]', ''); // Returns "col" or 'col' with quotes
+            return {df: df, col: col};
+        } else if (fullPath.indexOf('$') > -1) {
+            // Format: df$col
+            var parts = fullPath.split('$');
+            return {df: parts[0], col: '\"' + parts[1] + '\"'}; // Add quotes for safety
+        } else {
+            // Fallback or whole object
+            return {df: '', col: fullPath};
+        }
+    }
+  
     var func = getValue("na_func");
     var vars = getValue("na_vars");
     var fill_dir = getValue("na_fill_dir");
     var replace_val = getValue("na_replace_val");
 
-    var first_var = vars.split("\n")[0];
-    var df = first_var.split("$")[0];
+    var varList = vars.split("\n");
+    var dfName = "";
+    var cols = [];
 
-    var args = "";
+    for (var i = 0; i < varList.length; i++) {
+        var p = parseVar(varList[i]);
+        if (i === 0) dfName = p.df;
+        cols.push(p.col);
+    }
+
+    var args = cols.join(", ");
 
     if (func == "drop_na") {
-        args = vars.replace(/\n/g, ", ");
-        echo("missing_result <- tidyr::drop_na(" + df + ", " + args + ")\n");
+        echo("missing_result <- tidyr::drop_na(" + dfName + ", " + args + ")\n");
     }
     else if (func == "fill") {
-        args = vars.replace(/\n/g, ", ");
-        echo("missing_result <- tidyr::fill(" + df + ", " + args + ", .direction = \"" + fill_dir + "\")\n");
+        echo("missing_result <- tidyr::fill(" + dfName + ", " + args + ", .direction = \"" + fill_dir + "\")\n");
     }
     else if (func == "replace_na") {
-        echo("missing_result <- tidyr::replace_na(" + df + ", replace = " + replace_val + ")\n");
+        // replace_na typically takes the dataframe and the list. Columns are inferred from list keys.
+        echo("missing_result <- tidyr::replace_na(" + dfName + ", replace = " + replace_val + ")\n");
     }
   
 }
