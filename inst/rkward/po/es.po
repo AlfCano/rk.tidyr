@@ -3,16 +3,17 @@ msgstr ""
 "Project-Id-Version: rk.tidyr 0.0.3\n"
 "Report-Msgid-Bugs-To: alfonso.cano@correo.buap.mx\n"
 "POT-Creation-Date: 2026-03-23 12:17-0600\n"
-"PO-Revision-Date: 2026-03-23 12:17-0600\n"
+"PO-Revision-Date: 2026-10-10 08:22-0600\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
 
 msgid "data"
-msgstr "Datos"
+msgstr "datos"
 
 msgid "Tidy Data (tidyr)"
 msgstr "Datos Ordenados (tidyr)"
@@ -142,5 +143,3 @@ msgstr "Opciones de Relleno"
 
 msgid "Replace Options"
 msgstr "Opciones de Reemplazo"
-
-msgid "Ma
