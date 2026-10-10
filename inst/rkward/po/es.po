@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rk.tidyr 0.0.3\n"
+"Report-Msgid-Bugs-To: alfonso.cano@correo.buap.mx\n"
+"POT-Creation-Date: 2026-03-23 12:17-0600\n"
+"PO-Revision-Date: 2026-03-23 12:17-0600\n"
+"Last-Translator: \n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "data"
+msgstr "Datos"
+
+msgid "Tidy Data (tidyr)"
+msgstr "Datos Ordenados (tidyr)"
+
+msgid "Unite Multiple Columns"
+msgstr "Unir Múltiples Columnas"
+
+msgid "Combines multiple columns into a single column using a separator."
+msgstr "Combina múltiples columnas en una sola usando un separador."
+
+msgid "Select columns to unite, specify a separator, and provide a name for the new column."
+msgstr "Selecciona las columnas a unir, especifica un separador y proporciona un nombre para la nueva columna."
+
+msgid "Columns to Unite"
+msgstr "Columnas a Unir"
+
+msgid "New Column Name"
+msgstr "Nombre de la Nueva Columna"
+
+msgid "Separator (e.g., _ or -)"
+msgstr "Separador (ej., _ o -)"
+
+msgid "Remove input columns"
+msgstr "Eliminar columnas de entrada"
+
+msgid "Save result as"
+msgstr "Guardar resultado como"
+
+msgid "Unite Columns"
+msgstr "Unir Columnas"
+
+msgid "Manage Row Names"
+msgstr "Gestionar Nombres de Filas"
+
+msgid "Convert row names to a column or a column to row names using tibble."
+msgstr "Convierte nombres de filas a una columna o una columna a nombres de filas usando tibble."
+
+msgid "Choose the operation mode and specify the target variable."
+msgstr "Elige el modo de operación y especifica la variable de destino."
+
+msgid "Operation"
+msgstr "Operación"
+
+msgid "Row names to Column"
+msgstr "Nombres de Filas a Columna"
+
+msgid "Column to Row names"
+msgstr "Columna a Nombres de Filas"
+
+msgid "Dataframe (for Row->Col)"
+msgstr "Marco de Datos (para Fila->Col)"
+
+msgid "Column (for Col->Row)"
+msgstr "Columna (para Col->Fila)"
+
+msgid "Name for new Column (for Row->Col)"
+msgstr "Nombre para la nueva Columna (para Fila->Col)"
+
+msgid "Expand or Complete Tables"
+msgstr "Expandir o Completar Tablas"
+
+msgid "Generates all combinations of variables or completes missing combinations."
+msgstr "Genera todas las combinaciones de variables o completa combinaciones faltantes."
+
+msgid "Select variables to expand/complete by."
+msgstr "Selecciona variables por las cuales expandir/completar."
+
+msgid "Function"
+msgstr "Función"
+
+msgid "Expand (tidyr::expand)"
+msgstr "Expandir (tidyr::expand)"
+
+msgid "Complete (tidyr::complete)"
+msgstr "Completar (tidyr::complete)"
+
+msgid "Variables to cross"
+msgstr "Variables a cruzar"
+
+msgid "Expand / Complete"
+msgstr "Expandir / Completar"
+
+msgid "Expand or Complete"
+msgstr "Expandir o Completar"
+
+msgid "Handle Missing Values"
+msgstr "Manejar Valores Faltantes"
+
+msgid "Drop, fill, or replace missing values (NA)."
+msgstr "Eliminar, rellenar o reemplazar valores faltantes (NA)."
+
+msgid "Choose a strategy and apply it to selected columns."
+msgstr "Elige una estrategia y aplícala a las columnas seleccionadas."
+
+msgid "Drop NAs (drop_na)"
+msgstr "Eliminar NAs (drop_na)"
+
+msgid "Fill NAs (fill)"
+msgstr "Rellenar NAs (fill)"
+
+msgid "Replace NAs (replace_na)"
+msgstr "Reemplazar NAs (replace_na)"
+
+msgid "Target Variables"
+msgstr "Variables de Destino"
+
+msgid "Fill Direction"
+msgstr "Dirección de Relleno"
+
+msgid "Down"
+msgstr "Hacia abajo"
+
+msgid "Up"
+msgstr "Hacia arriba"
+
+msgid "Down then Up"
+msgstr "Hacia abajo luego hacia arriba"
+
+msgid "Up then Down"
+msgstr "Hacia arriba luego hacia abajo"
+
+msgid "Replacement List (R code, e.g., list(col=0))"
+msgstr "Lista de Reemplazo (código R, ej., list(col=0))"
+
+msgid "Fill Options"
+msgstr "Opciones de Relleno"
+
+msgid "Replace Options"
+msgstr "Opciones de Reemplazo"
+
+msgid "Ma

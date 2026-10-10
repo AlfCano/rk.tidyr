@@ -5,17 +5,17 @@ function preview(){
 	
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
+
         var df = '';
         var raw_col = '';
-        
+
         if (fullPath.indexOf('[[') > -1) {
             // Format: df[["col"]] or df[['col']]
             var parts = fullPath.split('[[');
             df = parts[0];
             // Remove brackets and quotes to get raw name
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             // Format: df$col
             var parts = fullPath.split('$');
@@ -24,7 +24,7 @@ function preview(){
         } else {
             raw_col = fullPath;
         }
-        
+
         // Return object with safe quoted version and raw symbol version
         return {
             df: df,
@@ -37,26 +37,26 @@ function preview(){
     var vars = getValue("na_vars");
     var fill_dir = getValue("na_fill_dir");
     var replace_val = getValue("na_replace_val");
-    
+
     var varList = vars.split("\n");
     var dfName = "";
     var cols = [];
-    
+
     for (var i = 0; i < varList.length; i++) {
         var p = parseVar(varList[i]);
         if (i === 0) dfName = p.df;
         cols.push(p.raw_col);
     }
-    
+
     var args = cols.join(", ");
     var cmd = "";
-    
+
     if (func == "drop_na") {
         cmd = "tidyr::drop_na(" + dfName + ", " + args + ")";
-    } 
+    }
     else if (func == "fill") {
         cmd = "tidyr::fill(" + dfName + ", " + args + ", .direction = \"" + fill_dir + "\")";
-    } 
+    }
     else if (func == "replace_na") {
         cmd = "tidyr::replace_na(" + dfName + ", replace = " + replace_val + ")";
     }
@@ -82,17 +82,17 @@ function calculate(is_preview){
 
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
+
         var df = '';
         var raw_col = '';
-        
+
         if (fullPath.indexOf('[[') > -1) {
             // Format: df[["col"]] or df[['col']]
             var parts = fullPath.split('[[');
             df = parts[0];
             // Remove brackets and quotes to get raw name
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             // Format: df$col
             var parts = fullPath.split('$');
@@ -101,7 +101,7 @@ function calculate(is_preview){
         } else {
             raw_col = fullPath;
         }
-        
+
         // Return object with safe quoted version and raw symbol version
         return {
             df: df,
@@ -114,26 +114,26 @@ function calculate(is_preview){
     var vars = getValue("na_vars");
     var fill_dir = getValue("na_fill_dir");
     var replace_val = getValue("na_replace_val");
-    
+
     var varList = vars.split("\n");
     var dfName = "";
     var cols = [];
-    
+
     for (var i = 0; i < varList.length; i++) {
         var p = parseVar(varList[i]);
         if (i === 0) dfName = p.df;
         cols.push(p.raw_col);
     }
-    
+
     var args = cols.join(", ");
     var cmd = "";
-    
+
     if (func == "drop_na") {
         cmd = "tidyr::drop_na(" + dfName + ", " + args + ")";
-    } 
+    }
     else if (func == "fill") {
         cmd = "tidyr::fill(" + dfName + ", " + args + ", .direction = \"" + fill_dir + "\")";
-    } 
+    }
     else if (func == "replace_na") {
         cmd = "tidyr::replace_na(" + dfName + ", replace = " + replace_val + ")";
     }

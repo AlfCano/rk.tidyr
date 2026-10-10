@@ -5,17 +5,17 @@ function preview(){
 	
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
+
         var df = '';
         var raw_col = '';
-        
+
         if (fullPath.indexOf('[[') > -1) {
             // Format: df[["col"]] or df[['col']]
             var parts = fullPath.split('[[');
             df = parts[0];
             // Remove brackets and quotes to get raw name
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             // Format: df$col
             var parts = fullPath.split('$');
@@ -24,7 +24,7 @@ function preview(){
         } else {
             raw_col = fullPath;
         }
-        
+
         // Return object with safe quoted version and raw symbol version
         return {
             df: df,
@@ -37,20 +37,20 @@ function preview(){
     var new_col = getValue("unite_colname");
     var sep = getValue("unite_sep");
     var remove = getValue("unite_remove");
-    
+
     var varList = vars.split("\n");
     var dfName = "";
     var cols = [];
-    
+
     for (var i = 0; i < varList.length; i++) {
         var p = parseVar(varList[i]);
-        if (i === 0) dfName = p.df; 
-        cols.push(p.col); 
+        if (i === 0) dfName = p.df;
+        cols.push(p.col);
     }
-    
+
     var args = "col = \"" + new_col + "\", " + cols.join(", ");
     args += ", sep = \"" + sep + "\"";
-    
+
     if (remove != "1") {
         args += ", remove = FALSE";
     }
@@ -76,17 +76,17 @@ function calculate(is_preview){
 
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
+
         var df = '';
         var raw_col = '';
-        
+
         if (fullPath.indexOf('[[') > -1) {
             // Format: df[["col"]] or df[['col']]
             var parts = fullPath.split('[[');
             df = parts[0];
             // Remove brackets and quotes to get raw name
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             // Format: df$col
             var parts = fullPath.split('$');
@@ -95,7 +95,7 @@ function calculate(is_preview){
         } else {
             raw_col = fullPath;
         }
-        
+
         // Return object with safe quoted version and raw symbol version
         return {
             df: df,
@@ -108,20 +108,20 @@ function calculate(is_preview){
     var new_col = getValue("unite_colname");
     var sep = getValue("unite_sep");
     var remove = getValue("unite_remove");
-    
+
     var varList = vars.split("\n");
     var dfName = "";
     var cols = [];
-    
+
     for (var i = 0; i < varList.length; i++) {
         var p = parseVar(varList[i]);
-        if (i === 0) dfName = p.df; 
-        cols.push(p.col); 
+        if (i === 0) dfName = p.df;
+        cols.push(p.col);
     }
-    
+
     var args = "col = \"" + new_col + "\", " + cols.join(", ");
     args += ", sep = \"" + sep + "\"";
-    
+
     if (remove != "1") {
         args += ", remove = FALSE";
     }

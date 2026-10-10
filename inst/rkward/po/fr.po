@@ -1,0 +1,186 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rk.tidyr 0.0.3\n"
+"Report-Msgid-Bugs-To: alfonso.cano@correo.buap.mx\n"
+"POT-Creation-Date: 2026-03-23 12:17-0600\n"
+"PO-Revision-Date: 2026-03-23 12:17-0600\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "data"
+msgstr "Données"
+
+msgid "Tidy Data (tidyr)"
+msgstr "Données Ordonnées (tidyr)"
+
+msgid "Unite Multiple Columns"
+msgstr "Unir Plusieurs Colonnes"
+
+msgid "Combines multiple columns into a single column using a separator."
+msgstr "Combine plusieurs colonnes en une seule en utilisant un séparateur."
+
+msgid "Select columns to unite, specify a separator, and provide a name for the new column."
+msgstr "Sélectionnez les colonnes à unir, spécifiez un séparateur et fournissez un nom pour la nouvelle colonne."
+
+msgid "Columns to Unite"
+msgstr "Colonnes à Unir"
+
+msgid "New Column Name"
+msgstr "Nom de la Nouvelle Colonne"
+
+msgid "Separator (e.g., _ or -)"
+msgstr "Séparateur (ex., _ ou -)"
+
+msgid "Remove input columns"
+msgstr "Supprimer les colonnes d'entrée"
+
+msgid "Save result as"
+msgstr "Enregistrer le résultat sous"
+
+msgid "Unite Columns"
+msgstr "Unir les Colonnes"
+
+msgid "Manage Row Names"
+msgstr "Gérer les Noms de Lignes"
+
+msgid "Convert row names to a column or a column to row names using tibble."
+msgstr "Convertit les noms de lignes en une colonne ou une colonne en noms de lignes en utilisant tibble."
+
+msgid "Choose the operation mode and specify the target variable."
+msgstr "Choisissez le mode d'opération et spécifiez la variable cible."
+
+msgid "Operation"
+msgstr "Opération"
+
+msgid "Row names to Column"
+msgstr "Noms de Lignes vers Colonne"
+
+msgid "Column to Row names"
+msgstr "Colonne vers Noms de Lignes"
+
+msgid "Dataframe (for Row->Col)"
+msgstr "Data Frame (pour Ligne->Col)"
+
+msgid "Column (for Col->Row)"
+msgstr "Colonne (pour Col->Ligne)"
+
+msgid "Name for new Column (for Row->Col)"
+msgstr "Nom pour la nouvelle Colonne (pour Ligne->Col)"
+
+msgid "Expand or Complete Tables"
+msgstr "Étendre ou Compléter des Tableaux"
+
+msgid "Generates all combinations of variables or completes missing combinations."
+msgstr "Génère toutes les combinaisons de variables ou complète les combinaisons manquantes."
+
+msgid "Select variables to expand/complete by."
+msgstr "Sélectionnez les variables par lesquelles étendre/compléter."
+
+msgid "Function"
+msgstr "Fonction"
+
+msgid "Expand (tidyr::expand)"
+msgstr "Étendre (tidyr::expand)"
+
+msgid "Complete (tidyr::complete)"
+msgstr "Compléter (tidyr::complete)"
+
+msgid "Variables to cross"
+msgstr "Variables à croiser"
+
+msgid "Expand / Complete"
+msgstr "Étendre / Compléter"
+
+msgid "Expand or Complete"
+msgstr "Étendre ou Compléter"
+
+msgid "Handle Missing Values"
+msgstr "Gérer les Valeurs Manquantes"
+
+msgid "Drop, fill, or replace missing values (NA)."
+msgstr "Supprimer, remplir ou remplacer les valeurs manquantes (NA)."
+
+msgid "Choose a strategy and apply it to selected columns."
+msgstr "Choisissez une stratégie et appliquez-la aux colonnes sélectionnées."
+
+msgid "Drop NAs (drop_na)"
+msgstr "Supprimer les NA (drop_na)"
+
+msgid "Fill NAs (fill)"
+msgstr "Remplir les NA (fill)"
+
+msgid "Replace NAs (replace_na)"
+msgstr "Remplacer les NA (replace_na)"
+
+msgid "Target Variables"
+msgstr "Variables Cibles"
+
+msgid "Fill Direction"
+msgstr "Direction de Remplissage"
+
+msgid "Down"
+msgstr "Vers le bas"
+
+msgid "Up"
+msgstr "Vers le haut"
+
+msgid "Down then Up"
+msgstr "Vers le bas puis vers le haut"
+
+msgid "Up then Down"
+msgstr "Vers le haut puis vers le bas"
+
+msgid "Replacement List (R code, e.g., list(col=0))"
+msgstr "Liste de Remplacement (Code R, ex., list(col=0))"
+
+msgid "Fill Options"
+msgstr "Options de Remplissage"
+
+msgid "Replace Options"
+msgstr "Options de Remplacement"
+
+msgid "Manage Nested Data"
+msgstr "Gérer les Données Imbriquées"
+
+msgid "Nest columns into list-columns, unnest them, or perform row-wise operations."
+msgstr "Imbriquez les colonnes dans des colonnes-listes, désimbriquez-les ou effectuez des opérations ligne par ligne."
+
+msgid "Select Nest, Unnest, or Rowwise, then select the appropriate grouping and target variables."
+msgstr "Sélectionnez Imbriquer, Désimbriquer ou Par Ligne, puis sélectionnez les variables de regroupement et cibles appropriées."
+
+msgid "Nest Data"
+msgstr "Imbriquer les Données"
+
+msgid "Unnest Data (unnest_longer)"
+msgstr "Désimbriquer les Données (unnest_longer)"
+
+msgid "Rowwise Grouping"
+msgstr "Regroupement par Lignes" 
+
+msgid "Grouping Variables (Keep outside nest)"
+msgstr "Variables de Regroupement (Garder en dehors de l'imbrication)"
+
+msgid "Variables to Nest (Inside list-column)"
+msgstr "Variables à Imbriquer (Dans la colonne-liste)"
+
+msgid "Name for new List-Column"
+msgstr "Nom de la nouvelle Colonne-Liste"
+
+msgid "List-Column to Unnest"
+msgstr "Colonne-Liste à Désimbriquer"
+
+msgid "Nest Options"
+msgstr "Options d'Imbrication"
+
+msgid "Unnest/Rowwise Options"
+msgstr "Options de Désimbrication/Par Ligne"
+
+msgid "Nested Data Operations"
+msgstr "Opérations sur Données Imbriquées"
+
+msgid "Nest and Unnest"
+msgstr "Imbriquer et Désimbriquer"

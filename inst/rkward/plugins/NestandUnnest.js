@@ -5,17 +5,17 @@ function preview(){
 	
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
+
         var df = '';
         var raw_col = '';
-        
+
         if (fullPath.indexOf('[[') > -1) {
             // Format: df[["col"]] or df[['col']]
             var parts = fullPath.split('[[');
             df = parts[0];
             // Remove brackets and quotes to get raw name
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             // Format: df$col
             var parts = fullPath.split('$');
@@ -24,7 +24,7 @@ function preview(){
         } else {
             raw_col = fullPath;
         }
-        
+
         // Return object with safe quoted version and raw symbol version
         return {
             df: df,
@@ -38,9 +38,9 @@ function preview(){
     var target_vars = getValue("nest_target_vars");
     var new_col = getValue("nest_new_col");
     var list_col = getValue("unnest_list_col");
-    
+
     var cmd = "";
-    
+
     if (mode == "nest") {
         var df = "";
         if (group_vars) {
@@ -48,26 +48,26 @@ function preview(){
         } else if (target_vars) {
             df = parseVar(target_vars.split("\n")[0]).df;
         }
-        
+
         cmd = df;
-        
+
         if (group_vars) {
              var g_list = group_vars.split("\n");
              var g_cols = [];
              for(var i=0; i<g_list.length; i++) g_cols.push(parseVar(g_list[i]).raw_col);
              cmd = "dplyr::group_by(" + cmd + ", " + g_cols.join(", ") + ")";
         }
-        
+
         var t_list = target_vars.split("\n");
         var t_cols = [];
         for(var i=0; i<t_list.length; i++) t_cols.push(parseVar(t_list[i]).raw_col);
-        
+
         if (group_vars) {
              cmd += " %>% tidyr::nest(" + new_col + " = c(" + t_cols.join(", ") + "))";
         } else {
              cmd = "tidyr::nest(" + cmd + ", " + new_col + " = c(" + t_cols.join(", ") + "))";
         }
-    } 
+    }
     else if (mode == "unnest") {
         if (list_col) {
             var p = parseVar(list_col);
@@ -78,7 +78,7 @@ function preview(){
         var df = "";
         if (list_col) df = parseVar(list_col).df;
         if (!df && group_vars) df = parseVar(group_vars.split("\n")[0]).df;
-        
+
         if (df) {
             cmd = "dplyr::rowwise(" + df + ")";
         }
@@ -108,17 +108,17 @@ function calculate(is_preview){
 
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
+
         var df = '';
         var raw_col = '';
-        
+
         if (fullPath.indexOf('[[') > -1) {
             // Format: df[["col"]] or df[['col']]
             var parts = fullPath.split('[[');
             df = parts[0];
             // Remove brackets and quotes to get raw name
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             // Format: df$col
             var parts = fullPath.split('$');
@@ -127,7 +127,7 @@ function calculate(is_preview){
         } else {
             raw_col = fullPath;
         }
-        
+
         // Return object with safe quoted version and raw symbol version
         return {
             df: df,
@@ -141,9 +141,9 @@ function calculate(is_preview){
     var target_vars = getValue("nest_target_vars");
     var new_col = getValue("nest_new_col");
     var list_col = getValue("unnest_list_col");
-    
+
     var cmd = "";
-    
+
     if (mode == "nest") {
         var df = "";
         if (group_vars) {
@@ -151,26 +151,26 @@ function calculate(is_preview){
         } else if (target_vars) {
             df = parseVar(target_vars.split("\n")[0]).df;
         }
-        
+
         cmd = df;
-        
+
         if (group_vars) {
              var g_list = group_vars.split("\n");
              var g_cols = [];
              for(var i=0; i<g_list.length; i++) g_cols.push(parseVar(g_list[i]).raw_col);
              cmd = "dplyr::group_by(" + cmd + ", " + g_cols.join(", ") + ")";
         }
-        
+
         var t_list = target_vars.split("\n");
         var t_cols = [];
         for(var i=0; i<t_list.length; i++) t_cols.push(parseVar(t_list[i]).raw_col);
-        
+
         if (group_vars) {
              cmd += " %>% tidyr::nest(" + new_col + " = c(" + t_cols.join(", ") + "))";
         } else {
              cmd = "tidyr::nest(" + cmd + ", " + new_col + " = c(" + t_cols.join(", ") + "))";
         }
-    } 
+    }
     else if (mode == "unnest") {
         if (list_col) {
             var p = parseVar(list_col);
@@ -181,7 +181,7 @@ function calculate(is_preview){
         var df = "";
         if (list_col) df = parseVar(list_col).df;
         if (!df && group_vars) df = parseVar(group_vars.split("\n")[0]).df;
-        
+
         if (df) {
             cmd = "dplyr::rowwise(" + df + ")";
         }

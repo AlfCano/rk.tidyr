@@ -1,8 +1,10 @@
 # rk.tidyr: Tidy Data Tools for RKWard
 
-![Version](https://img.shields.io/badge/Version-0.0.3-blue.svg)
+![Version](https://img.shields.io/badge/Version-0.0.4-blue.svg)
 ![License](https://img.shields.io/badge/License-GPL--3-green.svg)
 ![R Version](https://img.shields.io/badge/R-%3E%3D%203.0.0-lightgrey.svg)
+[![R Linter](https://github.com/AlfCano/rk.tidyr/actions/workflows/lintr.yml/badge.svg)](https://github.com/AlfCano/rk.tidyr/actions/workflows/lintr.yml)
+![AI Gemini](https://img.shields.io/badge/AI-Gemini-4285F4?logo=googlegemini&logoColor=white)
 
 This package provides a suite of RKWard plugins that create a graphical user interface for data manipulation using the powerful `tidyr`, `dplyr`, and `tibble` libraries. It is designed to help users reshape data, handle missing values, and manage nested data structures—core tasks for achieving "Tidy Data"—without writing complex code manually.
 
@@ -16,6 +18,13 @@ This package installs a new submenu in RKWard: **Data > Tidy Data (tidyr)**, whi
 *   **Handle Missing Values:** Drop, fill, or replace missing values (NA).
 *   **Manage Nested Data:** Advanced tools for nesting columns into list-columns and unnesting them.
 
+## What's New in Version 0.0.4
+
+**🌍 Internationalization & Code Quality**
+
+* **Multilingual Support:** The entire plugin suite has been fully localized. The GUI now automatically adapts to your RKWard language settings in Spanish, French, German, and Portuguese (Brazil).
+* **Continuous Integration:** Integrated GitHub Actions with `lintr` to ensure the package architecture and generated R code adhere to strict quality and formatting standards.
+
 ## Requirements
 
 1.  A working installation of **RKWard**.
@@ -23,7 +32,7 @@ This package installs a new submenu in RKWard: **Data > Tidy Data (tidyr)**, whi
     ```R
     install.packages(c("tidyr", "dplyr", "tibble"))
     ```
-3.  The R package **`devtools`** (for installation from source).
+3.  The R package **`remotes`** (for installation from source).
 
 ## Installation
 
@@ -33,7 +42,7 @@ This package installs a new submenu in RKWard: **Data > Tidy Data (tidyr)**, whi
 ```R
 local({
 ## Preparar
-require(devtools)
+require(remotes)
 ## Computar
   install_github(
     repo="AlfCano/rk.tidyr"
@@ -110,6 +119,15 @@ To reverse the previous operation:
 2.  **List-Column to Unnest:** Select the `data` column from the result created in Example 3 (e.g., `nested_result$data`).
 3.  Click **Submit**.
     *   *Result:* The dataframe expands back to the original 6 rows.
+
+## 🌍 Internationalization (i18n)
+
+The graphical interface automatically adapts to your RKWard language settings. Currently supported languages:
+* 🇺🇸 English (Default)
+* 🇪🇸 Spanish (Español)
+* 🇫🇷 French (Français)
+* 🇩🇪 German (Deutsch)
+* 🇧🇷 Portuguese (Português do Brasil)
 
 ## Author
 

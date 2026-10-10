@@ -1,0 +1,186 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rk.tidyr 0.0.3\n"
+"Report-Msgid-Bugs-To: alfonso.cano@correo.buap.mx\n"
+"POT-Creation-Date: 2026-03-23 12:17-0600\n"
+"PO-Revision-Date: 2026-03-23 12:17-0600\n"
+"Last-Translator: \n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "data"
+msgstr "Daten"
+
+msgid "Tidy Data (tidyr)"
+msgstr "Tidy Data (tidyr)"
+
+msgid "Unite Multiple Columns"
+msgstr "Mehrere Spalten Zusammenfügen"
+
+msgid "Combines multiple columns into a single column using a separator."
+msgstr "Verbindet mehrere Spalten zu einer einzigen Spalte mithilfe eines Trennzeichens."
+
+msgid "Select columns to unite, specify a separator, and provide a name for the new column."
+msgstr "Wählen Sie die zusammenzufügenden Spalten, geben Sie ein Trennzeichen an und benennen Sie die neue Spalte."
+
+msgid "Columns to Unite"
+msgstr "Zusammenzufügende Spalten"
+
+msgid "New Column Name"
+msgstr "Name der Neuen Spalte"
+
+msgid "Separator (e.g., _ or -)"
+msgstr "Trennzeichen (z.B. _ oder -)"
+
+msgid "Remove input columns"
+msgstr "Eingabespalten entfernen"
+
+msgid "Save result as"
+msgstr "Ergebnis speichern als"
+
+msgid "Unite Columns"
+msgstr "Spalten Zusammenfügen"
+
+msgid "Manage Row Names"
+msgstr "Zeilennamen Verwalten"
+
+msgid "Convert row names to a column or a column to row names using tibble."
+msgstr "Konvertiert Zeilennamen in eine Spalte oder eine Spalte in Zeilennamen mithilfe von tibble."
+
+msgid "Choose the operation mode and specify the target variable."
+msgstr "Wählen Sie den Betriebsmodus und geben Sie die Zielvariable an."
+
+msgid "Operation"
+msgstr "Operation"
+
+msgid "Row names to Column"
+msgstr "Zeilennamen zu Spalte"
+
+msgid "Column to Row names"
+msgstr "Spalte zu Zeilennamen"
+
+msgid "Dataframe (for Row->Col)"
+msgstr "Dataframe (für Zeile->Spalte)"
+
+msgid "Column (for Col->Row)"
+msgstr "Spalte (für Spalte->Zeile)"
+
+msgid "Name for new Column (for Row->Col)"
+msgstr "Name für die neue Spalte (für Zeile->Spalte)"
+
+msgid "Expand or Complete Tables"
+msgstr "Tabellen Erweitern oder Vervollständigen"
+
+msgid "Generates all combinations of variables or completes missing combinations."
+msgstr "Generiert alle Kombinationen von Variablen oder vervollständigt fehlende Kombinationen."
+
+msgid "Select variables to expand/complete by."
+msgstr "Wählen Sie Variablen, nach denen erweitert/vervollständigt werden soll."
+
+msgid "Function"
+msgstr "Funktion"
+
+msgid "Expand (tidyr::expand)"
+msgstr "Erweitern (tidyr::expand)"
+
+msgid "Complete (tidyr::complete)"
+msgstr "Vervollständigen (tidyr::complete)"
+
+msgid "Variables to cross"
+msgstr "Zu kreuzende Variablen"
+
+msgid "Expand / Complete"
+msgstr "Erweitern / Vervollständigen"
+
+msgid "Expand or Complete"
+msgstr "Erweitern oder Vervollständigen"
+
+msgid "Handle Missing Values"
+msgstr "Fehlende Werte Behandeln"
+
+msgid "Drop, fill, or replace missing values (NA)."
+msgstr "Fehlende Werte (NA) löschen, ausfüllen oder ersetzen."
+
+msgid "Choose a strategy and apply it to selected columns."
+msgstr "Wählen Sie eine Strategie und wenden Sie diese auf ausgewählte Spalten an."
+
+msgid "Drop NAs (drop_na)"
+msgstr "NAs löschen (drop_na)"
+
+msgid "Fill NAs (fill)"
+msgstr "NAs ausfüllen (fill)"
+
+msgid "Replace NAs (replace_na)"
+msgstr "NAs ersetzen (replace_na)"
+
+msgid "Target Variables"
+msgstr "Zielvariablen"
+
+msgid "Fill Direction"
+msgstr "Füllrichtung"
+
+msgid "Down"
+msgstr "Nach unten"
+
+msgid "Up"
+msgstr "Nach oben"
+
+msgid "Down then Up"
+msgstr "Nach unten, dann nach oben"
+
+msgid "Up then Down"
+msgstr "Nach oben, dann nach unten"
+
+msgid "Replacement List (R code, e.g., list(col=0))"
+msgstr "Ersetzungsliste (R-Code, z.B. list(col=0))"
+
+msgid "Fill Options"
+msgstr "Fülloptionen"
+
+msgid "Replace Options"
+msgstr "Ersetzungsoptionen"
+
+msgid "Manage Nested Data"
+msgstr "Verschachtelte Daten Verwalten"
+
+msgid "Nest columns into list-columns, unnest them, or perform row-wise operations."
+msgstr "Spalten in Listenspalten verschachteln (nest), entpacken (unnest) oder zeilenweise Operationen ausführen."
+
+msgid "Select Nest, Unnest, or Rowwise, then select the appropriate grouping and target variables."
+msgstr "Wählen Sie Verschachteln, Entpacken oder Zeilenweise; wählen Sie dann die Gruppierungs- und Zielvariablen aus."
+
+msgid "Nest Data"
+msgstr "Daten Verschachteln (Nest)"
+
+msgid "Unnest Data (unnest_longer)"
+msgstr "Daten Entpacken (unnest_longer)"
+
+msgid "Rowwise Grouping"
+msgstr "Zeilenweise Gruppierung (Rowwise)"
+
+msgid "Grouping Variables (Keep outside nest)"
+msgstr "Gruppierungsvariablen (Außerhalb der Verschachtelung behalten)"
+
+msgid "Variables to Nest (Inside list-column)"
+msgstr "Zu verschachtelnde Variablen (Innerhalb der Listenspalte)"
+
+msgid "Name for new List-Column"
+msgstr "Name der neuen Listenspalte"
+
+msgid "List-Column to Unnest"
+msgstr "Zu entpackende Listenspalte"
+
+msgid "Nest Options"
+msgstr "Verschachtelungsoptionen"
+
+msgid "Unnest/Rowwise Options"
+msgstr "Optionen für Entpacken/Zeilenweise"
+
+msgid "Nested Data Operations"
+msgstr "Operationen für Verschachtelte Daten"
+
+msgid "Nest and Unnest"
+msgstr "Verschachteln und Entpacken"

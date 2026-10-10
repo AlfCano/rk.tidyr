@@ -5,17 +5,17 @@ function preview(){
 	
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
+
         var df = '';
         var raw_col = '';
-        
+
         if (fullPath.indexOf('[[') > -1) {
             // Format: df[["col"]] or df[['col']]
             var parts = fullPath.split('[[');
             df = parts[0];
             // Remove brackets and quotes to get raw name
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             // Format: df$col
             var parts = fullPath.split('$');
@@ -24,7 +24,7 @@ function preview(){
         } else {
             raw_col = fullPath;
         }
-        
+
         // Return object with safe quoted version and raw symbol version
         return {
             df: df,
@@ -37,7 +37,7 @@ function preview(){
     var df_obj = getValue("rn_df_slot");
     var col_var = getValue("rn_input_var");
     var new_name = getValue("rn_input_text");
-    
+
     var cmd = "";
 
     if (mode == "r2c") {
@@ -77,17 +77,17 @@ function calculate(is_preview){
 
     function parseVar(fullPath) {
         if (!fullPath) return {df: '', col: '', raw_col: ''};
-        
+
         var df = '';
         var raw_col = '';
-        
+
         if (fullPath.indexOf('[[') > -1) {
             // Format: df[["col"]] or df[['col']]
             var parts = fullPath.split('[[');
             df = parts[0];
             // Remove brackets and quotes to get raw name
             var inner = parts[1].replace(']]', '');
-            raw_col = inner.replace(/["']/g, ''); 
+            raw_col = inner.replace(/["']/g, '');
         } else if (fullPath.indexOf('$') > -1) {
             // Format: df$col
             var parts = fullPath.split('$');
@@ -96,7 +96,7 @@ function calculate(is_preview){
         } else {
             raw_col = fullPath;
         }
-        
+
         // Return object with safe quoted version and raw symbol version
         return {
             df: df,
@@ -109,7 +109,7 @@ function calculate(is_preview){
     var df_obj = getValue("rn_df_slot");
     var col_var = getValue("rn_input_var");
     var new_name = getValue("rn_input_text");
-    
+
     var cmd = "";
 
     if (mode == "r2c") {

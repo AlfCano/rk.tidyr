@@ -15,7 +15,7 @@ local({
     ),
     about = list(
       desc = "An RKWard plugin package for data manipulation using the 'tidyr', 'dplyr' and 'tibble' libraries.",
-      version = "0.0.3", # Frozen as requested
+      version = "0.0.4",
       url = "https://github.com/AlfCano/rk.tidyr",
       license = "GPL (>= 3)"
     )
@@ -524,8 +524,5 @@ local({
     show = FALSE
   )
 
-  cat("\nPlugin package 'rk.tidyr' generated successfully.\n")
-  cat("To complete installation:\n")
-  cat("  1. rk.updatePluginMessages(path=\".\")\n")
-  cat("  2. devtools::install(\".\")\n")
+  cat("\nPlugin package 'rk.tidyr'0.0.4 generated successfully.\n")
 })
